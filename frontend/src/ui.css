@@ -1,0 +1,75 @@
+.canvas {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: var(--canvas);
+}
+
+.canvas .react-flow__edge-path {
+  stroke: var(--edge);
+  stroke-width: 1.6;
+}
+
+.canvas .react-flow__edge.selected .react-flow__edge-path,
+.canvas .react-flow__edge:hover .react-flow__edge-path {
+  stroke: var(--accent);
+}
+
+.canvas .react-flow__arrowhead path {
+  fill: var(--edge);
+}
+
+.canvas__controls.react-flow__controls {
+  bottom: 24px;
+  left: 24px;
+  box-shadow: none;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.canvas__controls .react-flow__controls-button {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  fill: var(--text-dim);
+  width: 30px;
+  height: 30px;
+}
+
+.canvas__controls .react-flow__controls-button:hover {
+  background: var(--surface-2);
+  fill: var(--text);
+}
+
+.canvas__minimap.react-flow__minimap {
+  bottom: 24px;
+  right: 24px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.canvas__empty {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.canvas__empty-title {
+  margin: 0 0 6px;
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-dim);
+}
+
+.canvas__empty-body {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-faint);
+}
