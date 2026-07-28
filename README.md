@@ -1,6 +1,6 @@
 # Pipeline Studio — VectorShift Frontend Assessment
 
-![Pipeline Studio canvas](./docs/screenshots/pipeline-canvas.png)
+![Pipeline Studio canvas](./Screenshot_2026-07-28_103059.png)
 
 ## Running it
 
@@ -46,9 +46,9 @@ text, and `JetBrains Mono` for anything code-like (variable chips, query fields)
 toolbar and submit button float over a full-bleed dotted canvas rather than boxing the
 canvas in, closer to how tools like n8n/Zapier/VectorShift itself lay things out.
 
-![Pipeline Studio landing page hero](./docs/screenshots/landing-hero.png)
+![Pipeline Studio landing page hero](./Screenshot_2026-07-28_102921.png)
 
-![Live pipeline validation animation on the landing page](./docs/screenshots/landing-live-validation.png)
+![Live pipeline validation animation on the landing page](./Screenshot_2026-07-28_102934.png)
 
 ## Part 3 — Text node logic
 
