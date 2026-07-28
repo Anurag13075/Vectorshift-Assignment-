@@ -1,21 +1,27 @@
 # Pipeline Studio — VectorShift Frontend Assessment
 
+![Pipeline Studio canvas](./docs/screenshots/pipeline-canvas.png)
+
 ## Running it
 
 **Backend**
+
 ```bash
 cd backend
 pip install -r requirements.txt
 uvicorn main:app --reload
 ```
+
 Runs on `http://localhost:8000`.
 
 **Frontend**
+
 ```bash
 cd frontend
 npm install
 npm start
 ```
+
 Runs on `http://localhost:3000`.
 
 Start the backend first (or at least before hitting "Run pipeline") — the frontend calls it directly.
@@ -40,9 +46,14 @@ text, and `JetBrains Mono` for anything code-like (variable chips, query fields)
 toolbar and submit button float over a full-bleed dotted canvas rather than boxing the
 canvas in, closer to how tools like n8n/Zapier/VectorShift itself lay things out.
 
+![Pipeline Studio landing page hero](./docs/screenshots/landing-hero.png)
+
+![Live pipeline validation animation on the landing page](./docs/screenshots/landing-live-validation.png)
+
 ## Part 3 — Text node logic
 
 `src/nodes/textNode.js`:
+
 - Grows in both width and height as you type — height from `scrollHeight`, width by
   measuring the text in a hidden mirror element with identical font metrics, both
   clamped to sane min/max bounds.
