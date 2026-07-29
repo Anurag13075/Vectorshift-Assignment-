@@ -23,17 +23,12 @@ const HubVisual = () => (
   </svg>
 );
 
-// eslint-disable-next-line no-unused-vars
-const TerminalVisual = () => (
-  <div className="bento-terminal" aria-hidden="true">
-    <div className="bento-terminal__line bento-terminal__line--1"><span className="bento-terminal__prompt">$</span> validate --graph</div>
-    <div className="bento-terminal__line bento-terminal__line--2 bento-terminal__ok">✓ no cycles found</div>
-    <div className="bento-terminal__line bento-terminal__line--3 bento-terminal__ok">✓ 9 nodes resolved</div>
-    <div className="bento-terminal__line bento-terminal__line--4 bento-terminal__dim">4ms<span className="bento-terminal__cursor" /></div>
+const TextVisual = () => (
+  <div className="bento-text-viz" aria-hidden="true">
+    <code>Hello {'{{'}<span className="bento-text-viz__var">name</span>{'}}'}<span className="bento-terminal__cursor" /></code>
+    <span className="bento-text-viz__chip">name</span>
   </div>
 );
-
-
 
 const CanvasVisual = () => (
   <svg viewBox="0 0 400 80" className="bento-canvas-viz" aria-hidden="true">
