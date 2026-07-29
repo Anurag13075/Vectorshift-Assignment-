@@ -1,4 +1,4 @@
-# Pipeline Studio — VectorShift Frontend Assessment
+# Pipeline Studio — VectorShift Frontend Assessment -
 
 ![Pipeline Studio canvas](./Screenshot%202026-07-28%20103059.png)
 
