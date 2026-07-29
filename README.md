@@ -2,6 +2,8 @@
 
 ![Pipeline Studio canvas](./Screenshot%202026-07-28%20103059.png)
 
+[Live Demo](https://vectorshift-assignment-da7y.vercel.app/)
+
 ## Running it
 
 **Backend**
