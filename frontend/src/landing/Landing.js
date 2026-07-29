@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Brand } from '../components/ui/Brand';
+import { ThemeSwitcher } from '../components/ui/ThemeSwitcher';
 import { HeroPreview } from './HeroPreview';
 import { BentoGrid } from './BentoGrid';
 import './Landing.css';
@@ -48,7 +49,7 @@ const WorkflowPulse = () => (
   </svg>
 );
 
-export const Landing = ({ onLaunch }) => (
+export const Landing = ({ onLaunch, themeMode, setThemeMode, resolvedTheme }) => (
   <div className="landing">
     <div className="landing__aurora" aria-hidden="true">
       <div className="landing__aurora-blob landing__aurora-blob--1" />
@@ -67,9 +68,19 @@ export const Landing = ({ onLaunch }) => (
         <a href="#features">Features</a>
         <a href="#flow">How it works</a>
       </div>
-      <button type="button" className="landing__nav-cta" onClick={onLaunch}>
-        Open builder
-      </button>
+      <div className="landing__nav-actions">
+        <ThemeSwitcher
+          value={themeMode}
+          onChange={setThemeMode}
+          classNamePrefix="landing__theme"
+        />
+        <span className="landing__theme-status" title={`Current theme: ${resolvedTheme}`}>
+          {resolvedTheme === 'dark' ? '🌙' : '☀️'}
+        </span>
+        <button type="button" className="landing__nav-cta" onClick={onLaunch}>
+          Open builder
+        </button>
+      </div>
     </motion.nav>
 
     <section className="landing__hero">

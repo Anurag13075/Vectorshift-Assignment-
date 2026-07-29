@@ -2,28 +2,28 @@
 
 :root {
   --black: #000000;
-  --bg: #000000;
-  --bg-raised: #0a0a0a;
-  --bg-surface: #111111;
-  --bg-hover: #161616;
-  --bg-active: #1a1a1a;
+  --bg: #070b14;
+  --bg-raised: #0e1424;
+  --bg-surface: #131b2f;
+  --bg-hover: #1a2640;
+  --bg-active: #22304d;
 
   --canvas: var(--bg);
   --surface: var(--bg-surface);
   --surface-2: var(--bg-hover);
   --border: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.14);
+  --border-strong: rgba(255, 255, 255, 0.16);
   --grid-dot: rgba(255, 255, 255, 0.04);
 
-  --text: #f5f5f5;
-  --text-dim: #888888;
-  --text-faint: #555555;
+  --text: #f5f7ff;
+  --text-dim: #aeb8cf;
+  --text-faint: #74829a;
 
-  --accent: #5e6ad2;
-  --accent-bright: #6872d9;
-  --accent-glow: rgba(94, 106, 210, 0.4);
-  --accent-muted: rgba(94, 106, 210, 0.12);
-  --accent-2: #3b82f6;
+  --accent: #7c8cff;
+  --accent-bright: #8d98ff;
+  --accent-glow: rgba(124, 140, 255, 0.28);
+  --accent-muted: rgba(124, 140, 255, 0.16);
+  --accent-2: #35c8ff;
 
   --success: #4ade80;
   --success-muted: rgba(74, 222, 128, 0.12);
@@ -32,7 +32,7 @@
   --danger: #f87171;
   --danger-muted: rgba(248, 113, 113, 0.12);
 
-  --edge: #333333;
+  --edge: #334155;
   --edge-active: var(--accent);
 
   --font-display: 'Inter', system-ui, -apple-system, sans-serif;
@@ -50,8 +50,33 @@
   --duration-fast: 150ms;
   --duration-normal: 300ms;
 
-  --glass: rgba(10, 10, 10, 0.72);
+  --glass: rgba(7, 11, 20, 0.72);
   --glass-border: rgba(255, 255, 255, 0.08);
+}
+
+:root[data-theme='light'] {
+  --bg: #f4f6ff;
+  --bg-raised: #ffffff;
+  --bg-surface: #eef2ff;
+  --bg-hover: #e3e9ff;
+  --bg-active: #dfe7ff;
+  --canvas: #f8faff;
+  --surface: var(--bg-surface);
+  --surface-2: var(--bg-hover);
+  --border: rgba(15, 23, 42, 0.08);
+  --border-strong: rgba(15, 23, 42, 0.16);
+  --grid-dot: rgba(15, 23, 42, 0.05);
+  --text: #0f172a;
+  --text-dim: #475569;
+  --text-faint: #64748b;
+  --accent: #4f46e5;
+  --accent-bright: #6366f1;
+  --accent-glow: rgba(79, 70, 229, 0.2);
+  --accent-muted: rgba(79, 70, 229, 0.12);
+  --accent-2: #0ea5e9;
+  --edge: #cbd5e1;
+  --glass: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(15, 23, 42, 0.08);
 }
 
 * {
