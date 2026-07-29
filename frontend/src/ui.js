@@ -125,8 +125,21 @@ export const PipelineUI = () => {
 
         {nodes.length === 0 && (
           <div className="canvas__empty">
+            <div className="canvas__empty-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none">
+                <rect x="3" y="8" width="8" height="8" rx="2" stroke="currentColor" strokeWidth="1.5" />
+                <rect x="13" y="8" width="8" height="8" rx="2" stroke="currentColor" strokeWidth="1.5" />
+                <path d="M11 12h2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              </svg>
+            </div>
             <p className="canvas__empty-title">Your pipeline is empty</p>
-            <p className="canvas__empty-body">Drag a node from the toolbar above and drop it here to begin.</p>
+            <p className="canvas__empty-body">
+              Drag a node from the sidebar and drop it here to start building your workflow.
+            </p>
+            <span className="canvas__empty-hint">
+              <span className="canvas__empty-hint-dot" />
+              Try starting with Input
+            </span>
           </div>
         )}
       </ReactFlow>

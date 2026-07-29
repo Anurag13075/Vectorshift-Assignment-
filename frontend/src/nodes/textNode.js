@@ -33,12 +33,11 @@ export const TextNode = ({ id, data }) => {
     const mirror = mirrorRef.current;
     if (!el || !mirror) return;
 
-    // Height: let the browser tell us how tall the content wants to be.
+   
     el.style.height = 'auto';
     const nextHeight = Math.min(Math.max(el.scrollHeight + 4, MIN_HEIGHT), MAX_HEIGHT);
 
-    // Width: mirror the text into an invisible element with identical
-    // font metrics and read its natural width.
+    
     mirror.textContent = text || ' ';
     const nextWidth = Math.min(Math.max(mirror.scrollWidth + 48, MIN_WIDTH), MAX_WIDTH);
 

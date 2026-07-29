@@ -2,17 +2,25 @@
 
 import { DraggableNode } from './draggableNode';
 import { nodeConfigs, paletteOrder } from './nodes/nodeConfigs';
+
 import './toolbar.css';
 
+
 export const PipelineToolbar = () => {
+  function collapse(){
+    
+  }
   return (
-    <div className="toolbar">
-      <div className="toolbar__brand">
-        <span className="toolbar__brand-mark">P</span>
-        <span className="toolbar__brand-name">Pipeline Studio</span>
+    <aside className="sidebar" aria-label="Node palette">
+      
+      <div className="sidebar__header">
+       
+        <span className="sidebar__title">Nodes</span>
+     
+        <span className="sidebar__hint">Drag to canvas</span>
+        
       </div>
-      <div className="toolbar__divider" />
-      <div className="toolbar__nodes">
+      <div className="sidebar__nodes">
         {paletteOrder.map((key) => {
           const config = nodeConfigs[key];
           return (
@@ -22,10 +30,11 @@ export const PipelineToolbar = () => {
               label={config.label}
               icon={config.icon}
               color={config.color}
+              description={config.description}
             />
           );
         })}
       </div>
-    </div>
+    </aside>
   );
 };

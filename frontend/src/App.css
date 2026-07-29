@@ -1,7 +1,61 @@
-.app {
-  position: relative;
+.builder {
+  display: flex;
+  flex-direction: column;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background: var(--canvas);
+  background: var(--bg);
+}
+
+.builder__topbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 52px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 20;
+  flex-shrink: 0;
+}
+
+.builder__brand {
+  flex-shrink: 0;
+}
+
+.builder__topbar-meta {
+  flex: 1;
+}
+
+.builder__badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+}
+
+.builder__topbar-actions {
+  flex-shrink: 0;
+}
+
+.builder__body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.builder__canvas {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+}
+
+@media (max-width: 720px) {
+  .builder__badge { display: none; }
 }

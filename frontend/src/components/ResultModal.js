@@ -3,6 +3,20 @@
 import { useEffect } from 'react';
 import './ResultModal.css';
 
+const CheckIcon = () => (
+  <svg className="result-modal__check-svg" viewBox="0 0 24 24" width="24" height="24" fill="none">
+    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" opacity="0.3" />
+    <path
+      className="result-modal__check-path"
+      d="M8 12.5l3 3 5-6"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
 export const ResultModal = ({ status, result, error, onClose }) => {
   useEffect(() => {
     const onKey = (e) => e.key === 'Escape' && onClose();
@@ -23,14 +37,21 @@ export const ResultModal = ({ status, result, error, onClose }) => {
       >
         {status === 'loading' && (
           <div className="result-modal__loading">
-            <span className="result-modal__spinner" />
-            <p>Sending your pipeline to the backend…</p>
+            <div className="result-modal__loading-ring">
+              <span className="result-modal__spinner" />
+            </div>
+            <h2 className="result-modal__title">Analyzing pipeline</h2>
+            <p className="result-modal__body">Sending your graph to the validation engine…</p>
           </div>
         )}
 
         {status === 'error' && (
           <>
-            <div className="result-modal__icon result-modal__icon--error">✕</div>
+            <div className="result-modal__icon result-modal__icon--error">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+                <path d="M8 8l8 8M16 8l-8 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              </svg>
+            </div>
             <h2 className="result-modal__title">Couldn't reach the backend</h2>
             <p className="result-modal__body">
               {error || 'Make sure the FastAPI server is running on http://localhost:8000.'}
@@ -48,9 +69,22 @@ export const ResultModal = ({ status, result, error, onClose }) => {
                 result.is_dag ? 'result-modal__icon--success' : 'result-modal__icon--warn'
               }`}
             >
-              {result.is_dag ? '✓' : '!'}
+              {result.is_dag ? (
+                <CheckIcon />
+              ) : (
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+                  <path
+                    d="M12 8v5m0 3h.01"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              )}
             </div>
-            <h2 className="result-modal__title">Pipeline analyzed</h2>
+            <h2 className="result-modal__title">
+              {result.is_dag ? 'Pipeline validated' : 'Cycle detected'}
+            </h2>
             <p className="result-modal__body">
               {result.is_dag
                 ? 'This pipeline is a valid directed acyclic graph — no cycles found.'

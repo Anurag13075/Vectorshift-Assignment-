@@ -2,12 +2,16 @@
   position: relative;
   width: 100%;
   height: 100%;
-  background: var(--canvas);
+  background: var(--bg);
+}
+
+.canvas .react-flow__background pattern circle {
+  fill: var(--grid-dot);
 }
 
 .canvas .react-flow__edge-path {
   stroke: var(--edge);
-  stroke-width: 1.6;
+  stroke-width: 1.5;
 }
 
 .canvas .react-flow__edge.selected .react-flow__edge-path,
@@ -15,39 +19,39 @@
   stroke: var(--accent);
 }
 
-.canvas .react-flow__arrowhead path {
-  fill: var(--edge);
+.canvas .react-flow__connection-path {
+  stroke: var(--accent);
+  stroke-width: 1.5;
 }
 
 .canvas__controls.react-flow__controls {
-  bottom: 24px;
-  left: 24px;
-  box-shadow: none;
-  border-radius: 10px;
+  bottom: 16px;
+  left: 16px;
+  border-radius: var(--radius-md);
   overflow: hidden;
   border: 1px solid var(--border);
+  box-shadow: none;
 }
 
 .canvas__controls .react-flow__controls-button {
-  background: var(--surface);
+  background: var(--bg-surface);
   border-bottom: 1px solid var(--border);
   fill: var(--text-dim);
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
 }
 
 .canvas__controls .react-flow__controls-button:hover {
-  background: var(--surface-2);
+  background: var(--bg-hover);
   fill: var(--text);
 }
 
 .canvas__minimap.react-flow__minimap {
-  bottom: 24px;
-  right: 24px;
-  border-radius: 10px;
-  overflow: hidden;
+  bottom: 16px;
+  right: 16px;
+  border-radius: var(--radius-md);
   border: 1px solid var(--border);
-  background: var(--surface);
+  background: var(--bg-surface);
 }
 
 .canvas__empty {
@@ -57,19 +61,52 @@
   transform: translate(-50%, -50%);
   text-align: center;
   pointer-events: none;
-  z-index: 0;
+  max-width: 300px;
 }
 
-.canvas__empty-title {
-  margin: 0 0 6px;
-  font-family: var(--font-display);
-  font-size: 16px;
-  font-weight: 600;
+.canvas__empty-icon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 20px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--bg-raised);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: var(--text-dim);
 }
 
+.canvas__empty-title {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
 .canvas__empty-body {
-  margin: 0;
+  margin: 0 0 14px;
   font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-dim);
+}
+
+.canvas__empty-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 10px;
   color: var(--text-faint);
+  padding: 5px 10px;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.canvas__empty-hint-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
 }

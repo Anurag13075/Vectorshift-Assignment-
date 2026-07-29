@@ -1,36 +1,67 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 
 :root {
-  /* Surfaces */
-  --canvas: #14161c;
-  --surface: #1b1e27;
-  --surface-2: #21242f;
-  --border: #2b2f3b;
-  --grid-dot: #262a35;
-  --edge: #454b5c;
+  --black: #000000;
+  --bg: #000000;
+  --bg-raised: #0a0a0a;
+  --bg-surface: #111111;
+  --bg-hover: #161616;
+  --bg-active: #1a1a1a;
 
-  /* Text */
-  --text: #f3f2ed;
-  --text-dim: #9298a6;
-  --text-faint: #5c6270;
+  --canvas: var(--bg);
+  --surface: var(--bg-surface);
+  --surface-2: var(--bg-hover);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+  --grid-dot: rgba(255, 255, 255, 0.04);
 
-  /* Accent (signature violet-indigo) */
-  --accent: #6c5ce7;
-  --accent-2: #4da3ff;
+  --text: #f5f5f5;
+  --text-dim: #888888;
+  --text-faint: #555555;
 
-  /* Status */
-  --success: #3dd68c;
-  --warn: #e0c23d;
-  --danger: #f0665a;
+  --accent: #5e6ad2;
+  --accent-bright: #6872d9;
+  --accent-glow: rgba(94, 106, 210, 0.4);
+  --accent-muted: rgba(94, 106, 210, 0.12);
+  --accent-2: #3b82f6;
 
-  /* Type */
-  --font-display: 'Space Grotesk', 'Segoe UI', sans-serif;
-  --font-body: 'Inter', 'Segoe UI', sans-serif;
-  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+  --success: #4ade80;
+  --success-muted: rgba(74, 222, 128, 0.12);
+  --warn: #fbbf24;
+  --warn-muted: rgba(251, 191, 36, 0.12);
+  --danger: #f87171;
+  --danger-muted: rgba(248, 113, 113, 0.12);
+
+  --edge: #333333;
+  --edge-active: var(--accent);
+
+  --font-display: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-pill: 999px;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+
+  --glass: rgba(10, 10, 10, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.08);
 }
 
 * {
   box-sizing: border-box;
+}
+
+
+
+html {
+  scroll-behavior: smooth;
 }
 
 html,
@@ -41,7 +72,7 @@ body,
 
 body {
   margin: 0;
-  background: var(--canvas);
+  background: var(--bg);
   color: var(--text);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
@@ -50,6 +81,11 @@ body {
 
 code {
   font-family: var(--font-mono);
+}
+
+::selection {
+  background: var(--accent-muted);
+  color: var(--text);
 }
 
 :focus-visible {
