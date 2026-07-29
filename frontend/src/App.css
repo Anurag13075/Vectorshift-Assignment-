@@ -80,12 +80,23 @@
   height: 38px;
   border: 1px solid var(--border);
   background: var(--bg-surface);
-  color: var(--text);
+  color: var(--text-dim);
   border-radius: var(--radius-pill);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  transition: all 150ms ease;
+}
+
+.builder__theme-status:hover {
+  color: var(--text);
+  background: var(--bg-hover);
+}
+
+.builder__theme-status svg {
+  width: 18px;
+  height: 18px;
 }
 
 .builder__body {

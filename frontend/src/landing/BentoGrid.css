@@ -2,6 +2,21 @@
   max-width: 1120px;
   margin: 0 auto;
   padding: 40px 24px 60px;
+  --bento-hub-fill: rgba(88, 166, 255, 0.15);
+  --bento-wire-stroke: rgba(88, 166, 255, 0.18);
+  --bento-rect-stroke: rgba(88, 166, 255, 0.16);
+  --bento-dag-line: rgba(88, 166, 255, 0.2);
+  --bento-dag-cycle: rgba(248, 81, 73, 0.38);
+  --bento-glow-color: rgba(88, 166, 255, 0.12);
+}
+
+:root[data-theme='light'] .bento {
+  --bento-hub-fill: rgba(79, 70, 229, 0.16);
+  --bento-wire-stroke: rgba(79, 70, 229, 0.12);
+  --bento-rect-stroke: rgba(79, 70, 229, 0.18);
+  --bento-dag-line: rgba(79, 70, 229, 0.2);
+  --bento-dag-cycle: rgba(248, 81, 73, 0.4);
+  --bento-glow-color: rgba(79, 70, 229, 0.12);
 }
 
 .bento__header {
@@ -97,7 +112,7 @@
 .bento__card-glow {
   position: absolute;
   inset: -1px;
-  background: radial-gradient(160px circle at 20% 0%, rgba(227, 150, 62, 0.1), transparent 60%);
+  background: radial-gradient(160px circle at 20% 0%, var(--bento-glow-color), transparent 60%);
   opacity: 0;
   transition: opacity var(--duration-normal) ease;
   pointer-events: none;

@@ -13,11 +13,11 @@ const fadeUp = {
 
 const HubVisual = () => (
   <svg viewBox="0 0 200 140" className="bento-viz bento-hub" aria-hidden="true">
-    <circle className="bento-hub__center" cx="100" cy="70" r="22" fill="rgba(227,150,62,0.14)" stroke="var(--accent)" strokeWidth="1.2" />
+    <circle className="bento-hub__center" cx="100" cy="70" r="22" fill="var(--bento-hub-fill)" stroke="var(--accent)" strokeWidth="1.2" />
     {[[40, 30], [160, 30], [40, 110], [160, 110], [100, 15]].map(([x, y], i) => (
       <g key={i} className="bento-hub__node" style={{ animationDelay: `${i * 0.35}s` }}>
-        <line x1="100" y1="70" x2={x + 20} y2={y + 12} stroke="rgba(237,239,230,0.1)" />
-        <rect x={x} y={y} width="40" height="24" rx="6" fill="var(--bg-raised)" stroke="rgba(237,239,230,0.12)" />
+        <line x1="100" y1="70" x2={x + 20} y2={y + 12} stroke="var(--bento-wire-stroke)" />
+        <rect x={x} y={y} width="40" height="24" rx="6" fill="var(--bg-raised)" stroke="var(--bento-rect-stroke)" />
       </g>
     ))}
   </svg>
@@ -41,7 +41,7 @@ const TextVisual = () => (
 
 const CanvasVisual = () => (
   <svg viewBox="0 0 400 80" className="bento-canvas-viz" aria-hidden="true">
-    <rect width="400" height="80" rx="8" fill="var(--bg-surface)" stroke="rgba(237,239,230,0.06)" />
+    <rect width="400" height="80" rx="8" fill="var(--bg-surface)" stroke="var(--bento-rect-stroke)" />
     {[60, 180, 300].map((x, i) => (
       <g key={i}>
         <rect x={x} y="26" width="56" height="28" rx="6" fill="var(--bg-raised)" stroke={['var(--accent-2)', 'var(--accent)', 'var(--success)'][i]} strokeWidth="1" />
@@ -49,7 +49,7 @@ const CanvasVisual = () => (
           <path
             id={`canvas-wire-${i}`}
             d={`M${x + 56},40 L${x + 124},40`}
-            stroke="rgba(237,239,230,0.12)"
+            stroke="var(--bento-wire-stroke)"
             strokeWidth="1.2"
           />
         )}
@@ -63,14 +63,14 @@ const CanvasVisual = () => (
 const DagVisual = () => (
   <div className="bento-dag" aria-hidden="true">
     <svg viewBox="0 0 140 120" className="bento-dag__valid">
-      <path d="M30,90 L70,30 L110,90" fill="none" stroke="rgba(237,239,230,0.14)" strokeWidth="1.4" />
+      <path d="M30,90 L70,30 L110,90" fill="none" stroke="var(--bento-dag-line)" strokeWidth="1.4" />
       {[[30, 90], [70, 30], [110, 90]].map(([x, y], i) => (
         <circle key={i} cx={x} cy={y} r="7" fill="var(--bg-raised)" stroke="var(--success)" strokeWidth="1.4" />
       ))}
       <path className="bento-dag__check" d="M58,50 L67,60 L84,40" fill="none" stroke="var(--success)" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
     <svg viewBox="0 0 140 120" className="bento-dag__cycle">
-      <path d="M30,90 L70,30 L110,90 L30,90" fill="none" stroke="rgba(226,88,75,0.4)" strokeWidth="1.4" />
+      <path d="M30,90 L70,30 L110,90 L30,90" fill="none" stroke="var(--bento-dag-cycle)" strokeWidth="1.4" />
       {[[30, 90], [70, 30], [110, 90]].map(([x, y], i) => (
         <circle key={i} cx={x} cy={y} r="7" fill="var(--bg-raised)" stroke="var(--danger)" strokeWidth="1.4" />
       ))}

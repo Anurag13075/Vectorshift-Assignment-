@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
+import { FiSun, FiMoon } from 'react-icons/fi';
 import { Landing } from './landing/Landing';
 import { PipelineToolbar } from './toolbar';
 import { PipelineUI } from './ui';
@@ -25,7 +26,7 @@ const Builder = () => {
             classNamePrefix="builder__theme"
           />
           <span className="builder__theme-status" title={`Current theme: ${resolvedTheme}`}>
-            {resolvedTheme === 'dark' ? '🌙' : '☀️'}
+            {resolvedTheme === 'dark' ? <FiMoon /> : <FiSun />}
           </span>
           <SubmitButton />
         </div>

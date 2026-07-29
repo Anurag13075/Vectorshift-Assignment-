@@ -1,15 +1,68 @@
 .sidebar {
-  width: 260px;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
   border-right: 1px solid var(--border);
   background: var(--bg-raised);
+  transition: width 300ms cubic-bezier(0.16, 1, 0.3, 1), opacity 300ms ease;
+  width: 260px;
+  min-width: 260px;
+}
+
+.sidebar--collapsed {
+  width: 64px;
+  min-width: 64px;
+}
+
+.sidebar--open {
+  width: 260px;
+  min-width: 260px;
 }
 
 .sidebar__header {
   padding: 20px 16px 14px;
   border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+
+.sidebar--collapsed .sidebar__header {
+  padding: 20px 12px 14px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar__toggle {
+  border: none;
+  background: transparent;
+  color: var(--text-dim);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  transition: all 200ms ease;
+  flex-shrink: 0;
+}
+
+.sidebar__toggle:hover {
+  background: var(--bg-hover);
+  color: var(--text);
+}
+
+.sidebar__toggle-icon {
+  width: 18px;
+  height: 18px;
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sidebar--collapsed .sidebar__toggle-icon {
+  transform: scaleX(-1);
 }
 
 .sidebar__title {
@@ -19,11 +72,24 @@
   font-weight: 600;
   letter-spacing: -0.01em;
   margin-bottom: 2px;
+  white-space: nowrap;
+  transition: opacity 300ms ease, max-width 300ms ease;
+  max-width: 150px;
+}
+
+.sidebar--collapsed .sidebar__title {
+  display: none;
 }
 
 .sidebar__hint {
   font-size: 11px;
   color: var(--text-faint);
+  white-space: nowrap;
+  transition: opacity 300ms ease;
+}
+
+.sidebar--collapsed .sidebar__hint {
+  display: none;
 }
 
 .sidebar__nodes {
@@ -33,6 +99,12 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
+  transition: padding 300ms ease;
+}
+
+.sidebar--collapsed .sidebar__nodes {
+  padding: 8px 4px;
+  align-items: center;
 }
 
 .sidebar__nodes::-webkit-scrollbar {
@@ -47,5 +119,16 @@
 @media (max-width: 720px) {
   .sidebar {
     width: 220px;
+    min-width: 220px;
+  }
+
+  .sidebar--collapsed {
+    width: 60px;
+    min-width: 60px;
+  }
+
+  .sidebar--open {
+    width: 220px;
+    min-width: 220px;
   }
 }

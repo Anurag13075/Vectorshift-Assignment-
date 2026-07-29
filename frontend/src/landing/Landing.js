@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { FiSun, FiMoon } from 'react-icons/fi';
 import { Brand } from '../components/ui/Brand';
 import { ThemeSwitcher } from '../components/ui/ThemeSwitcher';
 import { HeroPreview } from './HeroPreview';
@@ -75,7 +76,7 @@ export const Landing = ({ onLaunch, themeMode, setThemeMode, resolvedTheme }) =>
           classNamePrefix="landing__theme"
         />
         <span className="landing__theme-status" title={`Current theme: ${resolvedTheme}`}>
-          {resolvedTheme === 'dark' ? '🌙' : '☀️'}
+          {resolvedTheme === 'dark' ? <FiMoon /> : <FiSun />}
         </span>
         <button type="button" className="landing__nav-cta" onClick={onLaunch}>
           Open builder
