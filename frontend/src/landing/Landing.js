@@ -6,7 +6,7 @@ import './Landing.css';
 
 const stagger = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.1, delayChildren: 0.1 } },
+  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
 };
 
 const fadeUp = {
@@ -14,11 +14,14 @@ const fadeUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
 };
 
+const headlineLine1 = ['Build', 'pipelines'];
+const headlineLine2 = ['that', 'validate', 'themselves.'];
+
 const flowSteps = [
-  { n: '01', title: 'Trigger', body: 'Webhook, schedule, or manual — pick what starts the run.' },
-  { n: '02', title: 'Wire', body: 'Drag nodes and connect handles in execution order.' },
-  { n: '03', title: 'Validate', body: 'Backend runs a topological sort — pass or fail instantly.' },
-  { n: '04', title: 'Execute', body: 'Nodes run in dependency order on the canvas.' },
+  { n: '01', title: 'Trigger', body: 'Webhook, schedule, or a manual click — choose what starts the run.' },
+  { n: '02', title: 'Wire', body: 'Drag nodes onto the canvas and connect handles in the order they should fire.' },
+  { n: '03', title: 'Validate', body: 'A topological sort runs the instant two nodes connect — cycles get caught before anything runs.' },
+  { n: '04', title: 'Execute', body: 'Nodes fire in dependency order, one pulse at a time.' },
 ];
 
 const WorkflowPulse = () => (
@@ -29,8 +32,10 @@ const WorkflowPulse = () => (
     <path className="landing-pulse__wire" d="M280,96 C320,96 350,60 400,60" />
     <circle className="landing-pulse__dot landing-pulse__dot--a" r="3" />
     <circle className="landing-pulse__dot landing-pulse__dot--b" r="3" />
+    <circle className="landing-pulse__dot landing-pulse__dot--c" r="3" />
+    <circle className="landing-pulse__dot landing-pulse__dot--d" r="3" />
     {[
-      [20, 40, 60, 40, 'INPUT'],
+      [20, 40, 60, 40, 'TRIGGER'],
       [200, 4, 80, 40, 'LLM'],
       [200, 76, 80, 40, 'FILTER'],
       [400, 40, 80, 40, 'OUTPUT'],
@@ -68,20 +73,57 @@ export const Landing = ({ onLaunch }) => (
     </motion.nav>
 
     <section className="landing__hero">
-      <motion.div className="landing__hero-copy" variants={stagger} initial="hidden" animate="visible">
-        <motion.span className="landing__eyebrow" variants={fadeUp}>
+      <div className="landing__hero-copy">
+        <motion.span
+          className="landing__eyebrow"
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           Visual pipeline builder
         </motion.span>
-        <motion.h1 className="landing__headline" variants={fadeUp}>
-          Build pipelines
-          <br />
-          <span className="landing__headline-accent">that validate themselves.</span>
-        </motion.h1>
-        <motion.p className="landing__desc" variants={fadeUp}>
+
+        <h1 className="landing__headline">
+          <span className="landing__headline-line">
+            {headlineLine1.map((word, i) => (
+              <span
+                key={word}
+                className="landing__word"
+                style={{ animationDelay: `${0.15 + i * 0.08}s` }}
+              >
+                {word}&nbsp;
+              </span>
+            ))}
+          </span>
+          <span className="landing__headline-line landing__headline-accent">
+            {headlineLine2.map((word, i) => (
+              <span
+                key={word}
+                className="landing__word"
+                style={{ animationDelay: `${0.15 + (headlineLine1.length + i) * 0.08}s` }}
+              >
+                {word}&nbsp;
+              </span>
+            ))}
+          </span>
+        </h1>
+
+        <motion.p
+          className="landing__desc"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+        >
           Drag nodes, wire connections, hit run. Before anything executes, the graph proves
           it's a DAG — no cycles, no surprises.
         </motion.p>
-        <motion.div className="landing__actions" variants={fadeUp}>
+
+        <motion.div
+          className="landing__actions"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.72 }}
+        >
           <button type="button" className="landing__btn-primary" onClick={onLaunch}>
             Open the builder
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true">
@@ -92,12 +134,18 @@ export const Landing = ({ onLaunch }) => (
             Explore features
           </a>
         </motion.div>
-        <motion.div className="landing__metrics" variants={fadeUp}>
+
+        <motion.div
+          className="landing__metrics"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.84 }}
+        >
           <div><strong>9</strong> node types</div>
           <div><strong>&lt;5ms</strong> validation</div>
           <div><strong>100%</strong> client-side canvas</div>
         </motion.div>
-      </motion.div>
+      </div>
 
       <div className="landing__hero-visual">
         <HeroPreview />
@@ -128,22 +176,28 @@ export const Landing = ({ onLaunch }) => (
         <WorkflowPulse />
       </motion.div>
 
-      <div className="landing__flow-steps">
-        {flowSteps.map((step, i) => (
-          <motion.div
-            key={step.n}
-            className="landing__flow-step"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: i * 0.1 }}
-          >
+      <motion.div
+        className="landing__flow-steps"
+        variants={stagger}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-40px' }}
+      >
+        {flowSteps.map((step) => (
+          <motion.div key={step.n} className="landing__flow-step" variants={fadeUp}>
             <span className="landing__flow-num">{step.n}</span>
+            <motion.span
+              className="landing__flow-rule"
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+            />
             <h3>{step.title}</h3>
             <p>{step.body}</p>
           </motion.div>
         ))}
-      </div>
+      </motion.div>
     </section>
 
     <section className="landing__cta">
@@ -155,7 +209,7 @@ export const Landing = ({ onLaunch }) => (
         transition={{ duration: 0.6 }}
       >
         <h2>Start with a blank canvas.</h2>
-        <p>Drag your first node in under a minute.</p>
+        <p>Your first node takes under a minute to place.</p>
         <button type="button" className="landing__btn-primary landing__btn-primary--lg" onClick={onLaunch}>
           Open the builder
         </button>

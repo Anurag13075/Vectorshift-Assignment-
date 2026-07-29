@@ -1,24 +1,32 @@
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
+import { useRef, useState, useEffect } from 'react';
 import './HeroPreview.css';
 
 const nodes = [
-  { id: 'in', label: 'Input', x: 60, y: 140, color: '#2FC7A6', w: 90, h: 38 },
-  { id: 'llm', label: 'LLM', x: 200, y: 70, color: '#8B7FF0', w: 80, h: 38 },
-  { id: 'filter', label: 'Filter', x: 200, y: 200, color: '#4DA3FF', w: 80, h: 38 },
-  { id: 'out', label: 'Output', x: 340, y: 140, color: '#4ade80', w: 90, h: 38 },
+  { id: 'in', label: 'Trigger', x: 56, y: 142, color: 'var(--accent-2)', w: 92, h: 38 },
+  { id: 'llm', label: 'LLM', x: 202, y: 62, color: 'var(--accent)', w: 80, h: 38 },
+  { id: 'filter', label: 'Filter', x: 202, y: 212, color: '#8fa98a', w: 80, h: 38 },
+  { id: 'out', label: 'Output', x: 348, y: 142, color: 'var(--success)', w: 92, h: 38 },
 ];
 
 const edges = [
-  { from: 'in', to: 'llm' },
-  { from: 'in', to: 'filter' },
-  { from: 'llm', to: 'out' },
-  { from: 'filter', to: 'out' },
+  { from: 'in', to: 'llm', delay: 0 },
+  { from: 'in', to: 'filter', delay: 0.15 },
+  { from: 'llm', to: 'out', delay: 1.1 },
+  { from: 'filter', to: 'out', delay: 1.25 },
 ];
+
+const statusMessages = ['DAG validated', '0 cycles found', '4 nodes ready'];
 
 const getCenter = (id) => {
   const n = nodes.find((node) => node.id === id);
   return { x: n.x + n.w / 2, y: n.y + n.h / 2 };
+};
+
+const pathFor = (from, to) => {
+  const a = getCenter(from);
+  const b = getCenter(to);
+  return `M${a.x},${a.y} C${(a.x + b.x) / 2},${a.y} ${(a.x + b.x) / 2},${b.y} ${b.x},${b.y}`;
 };
 
 export const HeroPreview = () => {
@@ -27,6 +35,14 @@ export const HeroPreview = () => {
   const my = useMotionValue(0);
   const rotateX = useSpring(useTransform(my, [-0.5, 0.5], [4, -4]), { stiffness: 200, damping: 30 });
   const rotateY = useSpring(useTransform(mx, [-0.5, 0.5], [-4, 4]), { stiffness: 200, damping: 30 });
+
+  const [statusIndex, setStatusIndex] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => {
+      setStatusIndex((i) => (i + 1) % statusMessages.length);
+    }, 2600);
+    return () => clearInterval(id);
+  }, []);
 
   const onMove = (e) => {
     const rect = ref.current?.getBoundingClientRect();
@@ -60,30 +76,37 @@ export const HeroPreview = () => {
 
       <div className="hero-preview__canvas">
         <svg className="hero-preview__edges" viewBox="0 0 480 280" preserveAspectRatio="xMidYMid meet">
-          {edges.map(({ from, to }) => {
-            const a = getCenter(from);
-            const b = getCenter(to);
-            return (
-              <motion.path
-                key={`${from}-${to}`}
-                d={`M${a.x},${a.y} C${(a.x + b.x) / 2},${a.y} ${(a.x + b.x) / 2},${b.y} ${b.x},${b.y}`}
-                fill="none"
-                stroke="rgba(255,255,255,0.12)"
-                strokeWidth="1.5"
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ pathLength: 1, opacity: 1 }}
-                transition={{ duration: 1.2, delay: 0.6, ease: 'easeOut' }}
-              />
-            );
-          })}
-          <motion.circle
-            r="3"
-            fill="var(--accent)"
-            initial={{ offsetDistance: '0%' }}
-            animate={{ offsetDistance: '100%' }}
-            transition={{ duration: 2.5, repeat: Infinity, ease: 'linear' }}
-            style={{ offsetPath: `path('M${getCenter('in').x},${getCenter('in').y} C${(getCenter('in').x + getCenter('llm').x) / 2},${getCenter('in').y} ${(getCenter('in').x + getCenter('llm').x) / 2},${getCenter('llm').y} ${getCenter('llm').x},${getCenter('llm').y}')` }}
-          />
+          {edges.map(({ from, to }) => (
+            <motion.path
+              key={`${from}-${to}`}
+              d={pathFor(from, to)}
+              fill="none"
+              stroke="rgba(237,239,230,0.14)"
+              strokeWidth="1.5"
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={{ pathLength: 1, opacity: 1 }}
+              transition={{ duration: 1, delay: 0.5, ease: 'easeOut' }}
+            />
+          ))}
+
+          {edges.map(({ from, to, delay }) => (
+            <motion.circle
+              key={`pulse-${from}-${to}`}
+              r="3"
+              fill={to === 'out' ? 'var(--success)' : from === 'in' ? 'var(--accent-2)' : 'var(--accent)'}
+              initial={{ offsetDistance: '0%', opacity: 0 }}
+              animate={{ offsetDistance: ['0%', '0%', '100%', '100%'], opacity: [0, 1, 1, 0] }}
+              transition={{
+                duration: 1.9,
+                delay: 1.4 + delay,
+                repeat: Infinity,
+                repeatDelay: 1.3,
+                times: [0, 0.05, 0.65, 1],
+                ease: 'easeInOut',
+              }}
+              style={{ offsetPath: `path('${pathFor(from, to)}')` }}
+            />
+          ))}
         </svg>
 
         {nodes.map((node, i) => (
@@ -106,17 +129,22 @@ export const HeroPreview = () => {
           </motion.div>
         ))}
 
-        <motion.div
-          className="hero-preview__badge"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 1.2, duration: 0.4 }}
-        >
+        <div className="hero-preview__badge">
           <svg viewBox="0 0 16 16" width="12" height="12" fill="none">
             <path d="M3 8.5 6.5 12 13 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          DAG validated
-        </motion.div>
+          <AnimatePresence mode="wait">
+            <motion.span
+              key={statusMessages[statusIndex]}
+              initial={{ opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -4 }}
+              transition={{ duration: 0.3 }}
+            >
+              {statusMessages[statusIndex]}
+            </motion.span>
+          </AnimatePresence>
+        </div>
       </div>
     </motion.div>
   );
