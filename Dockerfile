@@ -12,7 +12,8 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends nginx supervisor gettext-base \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -f /etc/nginx/sites-enabled/default
 
 WORKDIR /app
 COPY backend/requirements.txt ./backend/requirements.txt
