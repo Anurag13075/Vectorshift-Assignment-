@@ -1,5 +1,5 @@
 import { motion, animate } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import './BentoGrid.css';
 
 const fadeUp = {
